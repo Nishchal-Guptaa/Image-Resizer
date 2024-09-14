@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer</title>
+</head>
+<body>
+    <div class="heading">
+        <h1>IMAGE RESIZER</h1>
+    </div>
+    <div class="post">
+        <form method="POST" enctype="multipart/form-data" class="content">
+            <p>{{form.hidden_tag()}}</p>
+            <p>{{form.file()}}</p>
+            <p>{{form.submit()}}</p>
+        </form>
+    </div>
+    <div class="result" style="margin-top: 10px;">
+        {% if file_url %}
+        <img src="{{ file_url }}" alt="Uploaded Image">
+        {% endif %}
+    </div>
+    <form action="/edit" method="post" class="hive">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
