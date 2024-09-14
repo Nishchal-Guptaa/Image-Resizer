@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer</title>
+</head>
+<style>
+    /* Global body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Style for the result container (showing the image) */
+.result {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.result img {
+    border: 2px solid #000 !important;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* General form styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+/* Label styling */
+form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Input field styling */
+form input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Submit button styling */
+form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for submit button */
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Download link styling */
+.result a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.result a:hover {
+    background-color: #0056b3;
+}
+
+</style>
+<body>
+    <form method="GET">
+
+        <div class="result" style="margin-top: 10px;">
+            {% if file_url %}
+                <img src="{{ file_url }}" alt="Uploaded Image">
+            {% endif %}
+        </div>
+
+    </form>
+    <form action="/edit" method="GET" class="para">
+        <p>Original width : {% if width %}{{width}}{% endif %}</p>
+        <p>Original height : {% if height %}{{height}}{% endif %}</p>
+    </form>
+    <form action="/response" method="post">
+        <label for="new_height">Enter Height in pixels:</label>
+        <input type="number" name="new_height"><br>
+        <label for="new_width">Enter Width in pixels:</label>
+        <input type="number" name="new_width">
+        <input type="submit" value="Submit">
+    </form>
+    <form method="GET">
+
+        <div class="result" style="margin-top: 10px;">
+            <h3>New Image</h3>
+            {% if resized_file_url %}
+                <img src="{{ resized_file_url }}" alt="Resized Image">
+                <a href="{{ resized_file_url }}" download>Download Resized Image</a>
+            {% endif %}
+        </div>
+
+    </form>
+</body>
+</html>
